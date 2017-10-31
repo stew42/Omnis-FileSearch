@@ -1,0 +1,2 @@
+;  one-liner-version
+Do $objects.oFileSearch.$newref().$listfiles(sys(215),mList,'*.lbs')

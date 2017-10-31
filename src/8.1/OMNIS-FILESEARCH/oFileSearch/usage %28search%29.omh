@@ -1,0 +1,29 @@
+
+;  create new instance of the objectclass
+Do $objects.oFileSearch.$newref() Returns tool
+;  search in "studio"-folder in omnis executable directory
+Calculate path as sys(215)
+
+
+;  search for omnis library files which names start with "jsp"
+Calculate search as 'JSP*.lbs'     ;; the search is case-insensitive
+Do tool.$listfiles(path,mList,search) Returns countTicks
+
+;  search for omnis library files which names contains "ma"
+Calculate search as '*ma*.lbs'
+Do tool.$listfiles(path,mList,search) Returns countTicks
+
+;  search for omnis library files which names end with "ow3"
+;  this works only with Omnis Studio 8.1 or later
+Calculate search as '*ow3.lbs'
+Do tool.$listfiles(path,mList,search) Returns countTicks
+
+;  search for multiple file extensions
+Calculate search as '*.lbs;*.dat'
+Do tool.$listfiles(path,mList,search) Returns countTicks
+;  count DAT-Files on the list
+Do mList.$sendall(,$sendallref.type='dat') Returns countDAT
+;  count LBS-Files on the list
+Do mList.$sendall(,$sendallref.type='lbs') Returns countLBS
+
+Quit method

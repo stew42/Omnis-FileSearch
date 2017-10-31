@@ -1,0 +1,14 @@
+;  create new instance of the objectclass
+Do $objects.oFileSearch.$newref() Returns tool
+;  search in "studio"-folder in omnis executable directory
+Calculate path as sys(215)
+
+;  *****     mode = 4: search by year modified
+;  name,fullname,readonly,hidden,size,created,modified,type
+Do tool.$listfiles(path,mList,'2016',4) Returns countTicks
+
+;  *****     mode = 5: search by year created
+;  name,fullname,readonly,hidden,size,created,modified,type
+Do tool.$listfiles(path,mList,'2015',5) Returns countTicks
+
+Quit method
