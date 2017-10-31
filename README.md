@@ -9,7 +9,7 @@ This repository includes the following:
 
 ### **lib**
 
-lib/4.3.2.0 (non-unicode): Demo Library created Omnis Studio 4.3.2.0 Non-Unicode Version
+lib/4.3.2.0 (non-unicode): Demo Library created with Omnis Studio 4.3.2.0 Non-Unicode Version
 
 lib/5.2.3.0: Demo Library created with Omnis Studio 5.2.3.0
 
