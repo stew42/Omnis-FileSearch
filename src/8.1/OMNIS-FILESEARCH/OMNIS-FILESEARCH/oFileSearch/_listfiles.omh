@@ -1,0 +1,6 @@
+Do r.$merge(FileOps.$filelist(1,p,1469,e),1)
+Calculate l as FileOps.$filelist(2,p,4)
+Do l.$linecount Returns c
+For n from 1 to c step 1
+	Do method _listfiles (l(1,n),r,e)
+End For

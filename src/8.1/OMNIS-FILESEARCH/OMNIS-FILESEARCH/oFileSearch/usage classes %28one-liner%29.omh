@@ -1,0 +1,64 @@
+;  Search for Classes in Libraries in Filesystem     ;; @US/26.03.2018
+;  =============================
+;  Useful to search for a 'lost' class somewhere on Desktop or folders because they are
+;  encapsuled by the library and hence not directy searchable.
+
+;  Diffent Filters are available:
+;  Library filter supporting Wildcard * and pattern matching, Class filter with regex search
+;  Case sensitive, whole word search, convert if nessessary flag (to prevent conversions and prompts)
+
+;  Selected Libraries can be opened in the IDE at the end.
+
+;  create new instance of the objectclass
+Do $objects.oFileSearch.$newref() Returns tool
+
+Breakpoint {Set your path and filters:}
+Calculate folderPath as 'C:\Test'
+Calculate folderPath as sys(215)
+
+Calculate libraryFilter as 'zIDETools.lbs'
+Calculate libraryFilter as '*.lbs'     ;; for more than one type or filtering: 'Wi*.lbs;*.lbs'
+
+Calculate classRegexFilter as 'Tool'
+Calculate classRegexFilter as ''
+
+Calculate wholeWord as kFalse
+Calculate caseSensitive as kFalse
+Calculate convertIfNessessary as kFalse
+
+Do fileops.$openfile($clib.$pathname)
+Do fileops.$readfile(currentStudioVersion,0,1)
+Do fileops.$closefile()
+
+Do classes.$define(name,modDate,diskSize,version,path,createDate,checkedOut)
+Do libraries.$define()
+
+Do tool.$listfiles(folderPath,libraries,libraryFilter)
+
+For libraries.$line from 1 to libraries.$linecount step 1
+	
+	Do fileops.$openfile(libraries.fullname)
+	Do fileops.$readfile(studioVersion,0,1)
+	Do fileops.$closefile()
+	If bintoint32(studioVersion)<=bintoint32(currentStudioVersion)
+		If bintoint32(studioVersion)=bintoint32(currentStudioVersion)     ;; same Version
+			Do tool.$listClasses(libraries.fullname,classes,classRegexFilter,caseSensitive,wholeWord)
+		Else If convertIfNessessary
+			Do tool.$listClasses(libraries.fullname,classes,classRegexFilter,caseSensitive,wholeWord)
+		End If
+	End If
+	
+End For
+
+OK message  {libs:[libraries.$linecount] classes:[classes.$linecount]}
+
+;  Select your appropriate sort
+Do classes.$sort($ref.name,kFalse,$ref.diskSize,kFalse,$ref.modDate,kFalse)
+Do classes.$sort($ref.path,kFalse,$ref.diskSize,kFalse,$ref.modDate,kFalse)
+Variable menu command: Open Value Window {classes}
+
+Breakpoint {Select lines by right mouse click in the classes list for libraries to be opened in next command. Dont kill the stack !}
+
+;  Open selected libs:
+Do classes.$sendall($root.$libs.$add(con('!!!',classes.path),kFalse),classes.0.$selected)
+Breakpoint

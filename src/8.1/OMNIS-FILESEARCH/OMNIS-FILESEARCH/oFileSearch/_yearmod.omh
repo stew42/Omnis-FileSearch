@@ -1,0 +1,8 @@
+Do FileOps.$filelist(1,p,1469,'*.*') Returns t
+Do t.$remove((t.$search(dpart(1,$ref.modified)<>s)>0)*-1)
+Do r.$merge(t,1)
+Calculate a as FileOps.$filelist(2,p,4)
+Do a.$linecount Returns c
+For n from 1 to c step 1
+	Do method _yearmod (a(1,n),r,s)
+End For

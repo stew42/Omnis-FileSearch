@@ -1,0 +1,24 @@
+Calculate t1 as #CT
+If pMode=0
+	Do pListFR.$define(name,fullname,readonly,hidden,size,created,modified,type)
+	Do method _listfiles (pPath,pListFR,pSearch)
+Else If pMode=1
+	Do pListFR.$define(name,fullname,size,type)
+	Do method _listfiles_basics (pPath,pListFR,pSearch)
+Else If pMode=2
+	Do pListFR.$define(name,fullname,readonly,hidden,size,created,modified,type,isdir,lnk)
+	Do method _listfiles_lnk (pPath,pListFR,pSearch)
+Else If pMode=3
+	Do pListFR.$define(fullname)
+	Do method _listfiles_path (pPath,pListFR,pSearch)
+Else If pMode=4
+	Do pListFR.$define(name,fullname,readonly,hidden,size,created,modified,type)
+	Do method _yearmod (pPath,pListFR,pSearch)
+Else If pMode=5
+	Do pListFR.$define(name,fullname,readonly,hidden,size,created,modified,type)
+	Do method _yearnew (pPath,pListFR,pSearch)
+Else If pMode=6
+	Do pListFR.$define(name,fullname,created,modified)
+	Do method _listfiles_dates (pPath,pListFR,pSearch)
+End If
+Quit method #CT-t1

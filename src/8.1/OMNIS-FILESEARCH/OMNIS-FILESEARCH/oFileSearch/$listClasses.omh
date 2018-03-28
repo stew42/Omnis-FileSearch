@@ -1,0 +1,20 @@
+;  @US/26.03.2018
+Do $root.$libs.$add(con('!!!',pPath),kFalse) Returns libRef     ;; see below, Open library
+
+If libRef.$lib()
+	Calculate classes as libRef.$classes.$makelist($ref.$name,$ref.$moddate,$ref.$disksize,$ref.$version,$ref.$lib().$pathname,$ref.$createdate,$ref.$showascheckedout)
+	If len(pClassFilter_opt)
+		Do classes.$search(rxpos(pClassFilter_opt,classes.C1,not(pCaseSensitive_opt),pWholeWord,0),kTrue,kFalse,kTrue,kTrue)
+		Do classes.$remove(kListKeepSelected)
+	End If
+	
+	Do pfClasses.$merge(classes)
+	
+	Do $libs.$remove(libRef)     ;; close library
+End If
+
+Quit method
+
+;  In Omnis Design Version there is no possibility to omit a Prompt if Conversion is nessessary
+Open library (Do not close others,Enable conversion by runtime,Do not open startup task) {[pPath],myLib}
+Set reference libRef to $root.$libs.myLib.$ref

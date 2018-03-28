@@ -1,0 +1,6 @@
+;  Copyright (c) 2017 Stephan Wüseke
+;  License: MIT     ;; https://opensource.org/licenses/mit-license.php
+
+;  US/26.03.2018
+;  Added: Search for libraries containing spezific omnis classes
+;  Omnis Libraries are opened for search, Conversion is done if needed and possible.
