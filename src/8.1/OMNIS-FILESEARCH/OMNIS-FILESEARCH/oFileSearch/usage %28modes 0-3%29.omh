@@ -1,0 +1,25 @@
+
+;  create new instance of the objectclass
+Do $objects.oFileSearch.$newref() Returns tool
+;  search in "studio"-folder in omnis executable directory
+Calculate path as sys(215)
+;  search for omnis library files
+Calculate search as '*.lbs'
+
+;  *****     mode=0 (default)
+;  name,fullname,readonly,hidden,size,created,modified,type
+Do tool.$listfiles(path,mList,search) Returns countTicks
+
+;  *****     mode = 1
+;  name,fullname,size,type
+Do tool.$listfiles(path,mList,search,1) Returns countTicks
+
+;  *****     mode = 2
+;  name,fullname,readonly,hidden,size,created,modified,type,isdir,lnk
+Do tool.$listfiles(path,mList,search,2) Returns countTicks
+
+;  *****     mode = 3
+;  fullname only
+Do tool.$listfiles(path,mList,search,3) Returns countTicks
+
+Quit method
